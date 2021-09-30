@@ -12,19 +12,33 @@ server.listen(3000, () => {
 let connections = []
 
 io.on('connect', (socket) => {
-    console.log(`connected ${socket.id}`)
+    // console.log(`connected ${socket.id}`)
     connections.push(socket)
-    socket.on('draw', (data) => {
-        connections.forEach(con => {
-            if(con.id !== socket.id){
-                con.emit('ondraw', {x: data.x, y: data.y})
-            }
-        })
-    })
+    // socket.on('draw', (data) => {
+    //     connections.forEach(con => {
+    //         if(con.id !== socket.id){
+    //             con.emit('ondraw', {x: data.x, y: data.y})
+    //         }
+    //     })
+    // })
     socket.on('down', (data) => {
         connections.forEach(con => {
             if(con.id !== socket.id){
-                con.emit('ondown', {x:data.x, y:data.y})
+                con.emit('ondown', (data))
+            }
+        })
+    })
+    socket.on('mousemove', (data) => {
+        connections.forEach(con => {
+            if(con.id !== socket.id){
+                con.emit('setMouseMove', {x:data.x, y:data.y})
+            }
+        })
+    })
+    socket.on('mousedown', (mouse) => {
+        connections.forEach(con => {
+            if(con.id !== socket.id){
+                con.emit('setMouseDown', {x:mouse.x, y:mouse.y})
             }
         })
     })

@@ -5,9 +5,12 @@ canvas.height = .75 * window.innerHeight
 
 var socket = io.connect('localhost:3000')
 let ctx = canvas.getContext('2d')
+
 ctx.lineWidth = 5;
 ctx.lineJoin = 'round';
 ctx.lineCap = 'round';
+ctx.strokeStyle = 'blue';
+ctx.fillStyle = 'blue';
 let x;
 let y;
 let mouseDown = false;
