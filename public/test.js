@@ -114,6 +114,8 @@ const changePenColor = (e) => {
     tmp_ctx.strokeStyle = pen_color;
     tmp_ctx.fillStyle = pen_color;
     socket.emit('changePenColor', (pen_color))
+    document.getElementById('pensize').innerHTML = size
+    socket.emit('changePenSize', (size))
 }
 const changePenSize = (e) => {
     console.log(e.target.value);
@@ -131,6 +133,7 @@ const changeEraserSize = (e) => {
     size = e.target.value
     tmp_ctx.lineWidth = size;
     document.getElementById('erasersize').innerHTML = size
+    socket.emit('changePenSize', (size))
 }
 
 tmp_canvas.addEventListener('mousedown', function(e) {
