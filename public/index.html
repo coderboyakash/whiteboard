@@ -32,11 +32,22 @@
         <div id="sketch">
             <canvas id="paint"></canvas>
         </div>
-        <input type="color" id="pen_color" onchange="changePenColor(event)">
+        <p>Pen Color</p>
+        <input type="color" id="pen_color" value="#000000" onchange="changePenColor(event)">
         <div>
-            <input type="range" id="size_input" onchange="changePenSize(event)" min="1" max="15" value="2">
+            <p>Pen Size</p>
+            <input type="range" id="pen_input" onchange="changePenSize(event)" min="1" max="50" value="5">
         </div>
-        <p id="size">2</p>
+        <p id="pensize">5</p>
+        <p>Background Color</p>
+        <input type="color" value="#ffffff" id="back_color" onchange="changeBackgroundColor(event)">
+        <p id="erasersize">5</p>
+        <div>
+            <p>Eraser Size</p>
+            <input type="range" id="eraser_input" onchange="changeEraserSize(event)" min="1" max="50" value="5">
+        </div>
+        <button onclick="activateEraserMode()">Eraser</button>
+        <button onclick="activateDrawMode()">Draw</button>
         <!-- <canvas id="canvas"></canvas>
         <button onclick="screenshot()">Take Screenshot</button>
         <img src="" alt="" id="image"> -->
