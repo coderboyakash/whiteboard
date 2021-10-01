@@ -11,13 +11,13 @@
             background-color: aliceblue;
         }
         html, body {
-	width: 100%;
-	height: 100%;
+	width: 80%;
+	height: 80%;
 }
 
 #sketch {
 	border: 10px solid gray;
-	height: 100%;
+	height: 80%;
 	position: relative;
 }
 
@@ -32,6 +32,11 @@
         <div id="sketch">
             <canvas id="paint"></canvas>
         </div>
+        <input type="color" id="pen_color" onchange="changePenColor(event)">
+        <div>
+            <input type="range" id="size_input" onchange="changePenSize(event)" min="1" max="15" value="2">
+        </div>
+        <p id="size">2</p>
         <!-- <canvas id="canvas"></canvas>
         <button onclick="screenshot()">Take Screenshot</button>
         <img src="" alt="" id="image"> -->

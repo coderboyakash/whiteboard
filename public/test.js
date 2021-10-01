@@ -50,6 +50,9 @@ var last_mouse = {x: 0, y: 0};
 var ppts = [];
 socket.on('setMouseMove', ({x, y}) => {
     if(mousedown){
+        ctx.drawImage(tmp_canvas, 0, 0);
+        tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
+        ppts = [];
         mouse.x = x;
         mouse.y = y;
         ppts.push({x: mouse.x, y: mouse.y});
@@ -69,14 +72,27 @@ tmp_canvas.addEventListener('mousemove', function(e) {
     mouse.y = typeof e.offsetY !== 'undefined' ? e.offsetY : e.layerY;
     socket.emit('mousemove', mouse)
 }, false);
-
+let pen_color = '#bd2e2e';
 
 /* Drawing on Paint App */
-tmp_ctx.lineWidth = 10;
+tmp_ctx.lineWidth = document.getElementById('size_input').innerHTML`;
 tmp_ctx.lineJoin = 'round';
 tmp_ctx.lineCap = 'round';
-tmp_ctx.strokeStyle = 'green';
-tmp_ctx.fillStyle = 'green';
+tmp_ctx.strokeStyle = pen_color;
+tmp_ctx.fillStyle = pen_color;
+
+const changePenColor = (e) => {
+    console.log(e.target.value);
+    pen_color = e.target.value
+    tmp_ctx.strokeStyle = pen_color;
+    tmp_ctx.fillStyle = pen_color;
+}
+const changePenSize = (e) => {
+    console.log(e.target.value);
+    size = e.target.value
+    tmp_ctx.lineWidth = size;
+    document.getElementById('size').innerHTML = size
+}
 
 tmp_canvas.addEventListener('mousedown', function(e) {
     // console.log('down ');
