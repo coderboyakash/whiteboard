@@ -75,7 +75,7 @@ tmp_canvas.addEventListener('mousemove', function(e) {
 let pen_color = '#bd2e2e';
 
 /* Drawing on Paint App */
-tmp_ctx.lineWidth = document.getElementById('size_input').innerHTML`;
+tmp_ctx.lineWidth = document.getElementById('size_input').innerHTML;
 tmp_ctx.lineJoin = 'round';
 tmp_ctx.lineCap = 'round';
 tmp_ctx.strokeStyle = pen_color;
