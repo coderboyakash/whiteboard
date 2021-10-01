@@ -50,10 +50,10 @@ var last_mouse = {x: 0, y: 0};
 var ppts = [];
 socket.on('setMouseMove', ({x, y}) => {
     if(mousedown){
+        tmp_canvas.addEventListener('mousemove', onPaint, false);
         tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
         mouse.x = x;
         mouse.y = y;
-        ppts.push({x: mouse.x, y: mouse.y});
         onPaint();
     }
 })
