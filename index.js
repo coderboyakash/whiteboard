@@ -65,6 +65,13 @@ io.on('connect', (socket) => {
             }
         })
     })
+    socket.on('clearBoardListen', () => {
+        connections.forEach(con => {
+            if(con.id !== socket.id){
+                con.emit('clearBoard')
+            }
+        })
+    })
     socket.on('disconnect', () => {
         connections = connections.filter((con) => con.id !== socket.id)
     })

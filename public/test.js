@@ -100,13 +100,23 @@ const activateDrawMode = () => {
 }
 
 const changeBackgroundColor = (e) => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     canvas.style.backgroundColor = e.target.value
     socket.emit('changeBackgroundColor', (e.target.value))
     socket.emit('changePenColor', (e.target.value))
 }
 socket.on('setBackgroundColor', (color) => {
     canvas.style.backgroundColor = color
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 })
+socket.on('clearBoard', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+})
+
+const clearBoard = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    socket.emit('clearBoardListen')
+}
 
 const changePenColor = (e) => {
     // console.log(e.target.value);
