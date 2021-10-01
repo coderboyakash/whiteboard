@@ -6,10 +6,10 @@ var ctx = canvas.getContext('2d');
 var sketch = document.querySelector('#sketch');
 // it return all the css applied to the sketch element
 var sketch_style = getComputedStyle(sketch);
-let user_id = "1";
+let user_id = "2";
 let socket_id = null;
 socket.on('connect', ()=>{
-    socket.emit('addUser', ({socket_id:socket.id, publisher_id:1, subscriber_id:2}))
+    // socket.emit('addUser', ({socket_id:socket.id, publisher_id:1, subscriber_id:2}))
     socket.emit('add_connections', ({socket_id:socket.id, user_id:user_id}))
     socket_id = socket.id
     document.getElementById('socket_id').innerHTML = socket_id
