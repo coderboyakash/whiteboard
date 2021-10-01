@@ -111,11 +111,11 @@ const changeBackgroundColor = (e) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     canvas.style.backgroundColor = e.target.value
     socket.emit('changeBackgroundColor', (e.target.value))
-    socket.emit('changePenColor', (e.target.value))
+    socket.emit('changePenColor', (document.getElementById('pen_color').value))
 }
 socket.on('setBackgroundColor', (color) => {
-    canvas.style.backgroundColor = color
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.style.backgroundColor = color
 })
 socket.on('clearBoard', () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
