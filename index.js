@@ -42,6 +42,29 @@ io.on('connect', (socket) => {
             }
         })
     })
+
+    socket.on('changePenColor', (color) => {
+        connections.forEach(con => {
+            if(con.id !== socket.id){
+                con.emit('setPenColor', (color))
+            }
+        })
+    })
+
+    socket.on('changePenSize', (color) => {
+        connections.forEach(con => {
+            if(con.id !== socket.id){
+                con.emit('setPenSize', (color))
+            }
+        })
+    })
+    socket.on('changeBackgroundColor', (color) => {
+        connections.forEach(con => {
+            if(con.id !== socket.id){
+                con.emit('setBackgroundColor', (color))
+            }
+        })
+    })
     socket.on('disconnect', () => {
         connections = connections.filter((con) => con.id !== socket.id)
     })

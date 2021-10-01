@@ -85,6 +85,8 @@ const activateEraserMode = () => {
     tmp_ctx.strokeStyle = back_color;
     tmp_ctx.fillStyle = back_color;
     tmp_ctx.lineWidth = size;
+    socket.emit('changePenColor', (back_color))
+    socket.emit('changePenSize', (size))
 }
 
 const activateDrawMode = () => {
@@ -93,24 +95,36 @@ const activateDrawMode = () => {
     tmp_ctx.strokeStyle = pen_color;
     tmp_ctx.fillStyle = pen_color;
     tmp_ctx.lineWidth = size;
+    socket.emit('changePenColor', (pen_color))
+    socket.emit('changePenSize', (size))
 }
 
 const changeBackgroundColor = (e) => {
     canvas.style.backgroundColor = e.target.value
+    socket.emit('changeBackgroundColor', (e.target.value))
+    socket.emit('changePenColor', (e.target.value))
 }
+socket.on('setBackgroundColor', (color) => {
+    canvas.style.backgroundColor = color
+})
 
 const changePenColor = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     pen_color = e.target.value
     tmp_ctx.strokeStyle = pen_color;
     tmp_ctx.fillStyle = pen_color;
+    socket.emit('changePenColor', (pen_color))
 }
 const changePenSize = (e) => {
     console.log(e.target.value);
     size = e.target.value
     tmp_ctx.lineWidth = size;
     document.getElementById('pensize').innerHTML = size
+    socket.emit('changePenSize', (size))
 }
+socket.on('setPenSize', (size) => {
+    tmp_ctx.lineWidth = size;
+})
 
 const changeEraserSize = (e) => {
     console.log(e.target.value);
@@ -178,4 +192,10 @@ var onPaint = function() {
     tmp_ctx.stroke();
     
 };
+
+socket.on('setPenColor', (color) => {
+    // console.log(color)
+    tmp_ctx.strokeStyle = color;
+    tmp_ctx.fillStyle = color;
+})
 	
