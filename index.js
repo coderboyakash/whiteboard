@@ -5,14 +5,9 @@ const io = require('socket.io')(server, {
     cors: { origin : '*'},
 });
 
-server.listen(3000, () => {
-    console.log('Running Server!!!');
-})
-
 let connections = []
 let users = [];
 const addUser = (socket_id, publisher_id, subscriber_id) => {
-    console.log('addUser', users)
     if(socket_id != null){
         users.some(user => user.publisher_id === publisher_id) ? 
             ( 
@@ -22,7 +17,6 @@ const addUser = (socket_id, publisher_id, subscriber_id) => {
             : 
             (users.push({publisher_id, subscriber_id, socket_id}))
     }
-    console.log('addUser over', users)
 }
 
 const getUser = (socket_id) => {
@@ -40,7 +34,6 @@ const getUser = (socket_id) => {
 }
 
 const addConnection = (socket_id, user_id) => {
-    console.log('addUser', connections)
     if(socket_id != null){
         connections.some(user => user.user_id === user_id) ? 
             ( 
@@ -50,7 +43,6 @@ const addConnection = (socket_id, user_id) => {
             : 
             (connections.push({user_id, socket_id}))
     }
-    console.log('addUser over', connections)
 }
 
 const getConnection = (user_id) => {
@@ -69,8 +61,6 @@ const getConnection = (user_id) => {
 
 
 io.on('connect', (socket) => {
-    // connections.push(socket)
-
     socket.on('add_connections',({socket_id, user_id}) => {
         addConnection(socket_id, user_id)
     })
@@ -83,7 +73,6 @@ io.on('connect', (socket) => {
         if(receiver.return){
             const subscriber = getConnection(receiver.data.subscriber_id)
             if(subscriber.return){
-                console.log('emitting to ' , subscriber.socket_id);
                 io.to(subscriber.socket_id).emit('ondown', (data))
             }else{
                 console.log('receiver not found');
@@ -96,7 +85,6 @@ io.on('connect', (socket) => {
         if(receiver.return){
         const subscriber = getConnection(receiver.data.subscriber_id)
         if(subscriber.return){
-            console.log('emitting to ' , subscriber.socket_id);
             io.to(subscriber.socket_id).emit('setMouseMove', {x:data.x, y:data.y})
         }else{
             console.log('receiver not found');
@@ -107,95 +95,69 @@ io.on('connect', (socket) => {
         const receiver = getUser(socket.id)
         
         if(receiver.return){
-        const subscriber = getConnection(receiver.data.subscriber_id)
-        if(subscriber.return){
-            console.log('emitting to ' , subscriber.socket_id);
-            // .emit('ondown', (data))
-            io.to(subscriber.socket_id).emit('setMouseDown', {x:mouse.x, y:mouse.y})
-        }else{
-            console.log('receiver not found');
+            const subscriber = getConnection(receiver.data.subscriber_id)
+            if(subscriber.return){
+                io.to(subscriber.socket_id).emit('setMouseDown', {x:mouse.x, y:mouse.y})
+            }else{
+                console.log('receiver not found');
+            }
         }
-    }
-        // connections.forEach(con => {
-        //     if(con.id !== socket.id){
-        //     }
-        // })
     })
 
     socket.on('changePenColor', (color) => {
         const receiver = getUser(socket.id)
         
         if(receiver.return){
-        const subscriber = getConnection(receiver.data.subscriber_id)
-        if(subscriber.return){
-            console.log('emitting to ' , subscriber.socket_id);
-            // .emit('ondown', (data))
-            io.to(subscriber.socket_id).emit('setPenColor', (color))
-        }else{
-            console.log('receiver not found');
+            const subscriber = getConnection(receiver.data.subscriber_id)
+            if(subscriber.return){
+                io.to(subscriber.socket_id).emit('setPenColor', (color))
+            }else{
+                console.log('receiver not found');
+            }
         }
-    }
-        // connections.forEach(con => {
-        //     if(con.id !== socket.id){
-        //     }
-        // })
     })
 
     socket.on('changePenSize', (color) => {
         const receiver = getUser(socket.id)
         
         if(receiver.return){
-        const subscriber = getConnection(receiver.data.subscriber_id)
-        if(subscriber.return){
-            console.log('emitting to ' , subscriber.socket_id);
-            // .emit('ondown', (data))
-            io.to(subscriber.socket_id).emit('setPenSize', (color))
-        }else{
-            console.log('receiver not found');
+            const subscriber = getConnection(receiver.data.subscriber_id)
+            if(subscriber.return){
+                io.to(subscriber.socket_id).emit('setPenSize', (color))
+            }else{
+                console.log('receiver not found');
+            }
         }
-    }
-        // connections.forEach(con => {
-        //     if(con.id !== socket.id){
-        //     }
-        // })
     })
     socket.on('changeBackgroundColor', (color) => {
         const receiver = getUser(socket.id)
         
         if(receiver.return){
-        const subscriber = getConnection(receiver.data.subscriber_id)
-        if(subscriber.return){
-            console.log('emitting to ' , subscriber.socket_id);
-            // .emit('ondown', (data))
-            io.to(subscriber.socket_id).emit('setBackgroundColor', (color))
-        }else{
-            console.log('receiver not found');
+            const subscriber = getConnection(receiver.data.subscriber_id)
+            if(subscriber.return){
+                io.to(subscriber.socket_id).emit('setBackgroundColor', (color))
+            }else{
+                console.log('receiver not found');
+            }
         }
-    }
-        // connections.forEach(con => {
-        //     if(con.id !== socket.id){
-        //     }
-        // })
     })
     socket.on('clearBoardListen', () => {
         const receiver = getUser(socket.id)
         
         if(receiver.return){
-        const subscriber = getConnection(receiver.data.subscriber_id)
-        if(subscriber.return){
-            console.log('emitting to ' , subscriber.socket_id);
-            // .emit('ondown', (data))
-            io.to(subscriber.socket_id).emit('clearBoard')
-        }else{
-            console.log('receiver not found');
+            const subscriber = getConnection(receiver.data.subscriber_id)
+            if(subscriber.return){
+                io.to(subscriber.socket_id).emit('clearBoard')
+            }else{
+                console.log('receiver not found');
+            }
         }
-    }
-        // connections.forEach(con => {
-        //     if(con.id !== socket.id){
-        //     }
-        // })
     })
     socket.on('disconnect', () => {
         connections = connections.filter((con) => con.id !== socket.id)
     })
+})
+
+server.listen(3000, () => {
+    console.log('Running Server!!!');
 })

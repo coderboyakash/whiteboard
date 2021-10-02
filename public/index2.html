@@ -20,6 +20,7 @@
 	height: 80%;
 	position: relative;
     /* z-index:0; */
+    pointer-events: none;
 }
 
 #tmp_canvas {
@@ -34,23 +35,23 @@
         <div id="sketch">
             <canvas id="paint"></canvas>
         </div>
-        <p>Pen Color</p>
-        <input type="color" id="pen_color" value="#000000" onchange="changePenColor(event)">
+        <!-- <p>Pen Color</p> -->
+        <input type="hidden" id="pen_color" value="#000000" onchange="changePenColor(event)">
         <div>
-            <p>Pen Size</p>
-            <input type="range" id="pen_input" onchange="changePenSize(event)" min="1" max="50" value="5">
+            <!-- <p>Pen Size</p> -->
+            <input type="hidden" id="pen_input" onchange="changePenSize(event)" min="1" max="50" value="5">
         </div>
-        <p id="pensize">5</p>
-        <p>Background Color</p>
-        <input type="color" value="#ffffff" id="back_color" onchange="changeBackgroundColor(event)">
-        <p id="erasersize">5</p>
+        <!-- <p id="pensize">5</p> -->
+        <!-- <p>Background Color</p> -->
+        <input type="hidden" value="#ffffff" id="back_color" onchange="changeBackgroundColor(event)">
+        <!-- <p id="erasersize">5</p> -->
         <div>
-            <p>Eraser Size</p>
-            <input type="range" id="eraser_input" onchange="changeEraserSize(event)" min="1" max="50" value="5">
+            <!-- <p>Eraser Size</p> -->
+            <input type="hidden" id="eraser_input" onchange="changeEraserSize(event)" min="1" max="50" value="5">
         </div>
-        <button onclick="activateEraserMode()">Eraser</button>
+        <!-- <button onclick="activateEraserMode()">Eraser</button>
         <button onclick="activateDrawMode()">Draw</button>
-        <button onclick="clearBoard()">Clear Board</button>
+        <button onclick="clearBoard()">Clear Board</button> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdn.socket.io/4.2.0/socket.io.min.js"></script>
